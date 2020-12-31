@@ -3,6 +3,8 @@
 <html>
     <meta charset="UTF-8">
     <title>Sarah Werum Portfolio</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <style>
 
         body {
@@ -17,11 +19,12 @@
         color: rgb(247, 117, 138);
         text-align: center;
         }
-        
+        h3{ margin-bottom: 0px;}
+
         p {
         text-align: justify;
-        font-family: 'Times New Roman', Times, serif;
         font-size: 16px;
+        margin-bottom: 5px;
         }
         .content {
             background-color: white;
@@ -29,6 +32,9 @@
         }
         img {
             padding: 10px;
+        }
+        .EmailLink {
+            font-style: italic;
         }
         </style>
     <body>
@@ -38,16 +44,31 @@
         <h1 id = "TopOfPage">Sarah Werum - Portfolio</h1>
 
         <article>
+            <p>
+                Sarah Werum was born in Stuttgart in the year 2000. After graduating from Königin Olga Stift Gymnasium in 2018, 
+                she moved to Atlanta to study Computer Science at Emory University. <br>
+                She developed the 2D Steam game 'Escaping Hell' from June 2019 until its release in August 2020, and is currently overseeing und facilitating the translation of the game into Spanish.<br>
+                During a gap semester in Fall 2020, she worked for the Video Game and Animation Studio Studio Seufz, 
+                where she was responsible for porting the Flash game Moon Waltz into HTML and JavaScript. After completion of this project,
+                she built several minigames, coded and designed traps, and helped build the random room generation system of the RogueLite Lucky Tower 3.
+            </p>
+            <div class="EmailLink">
+                <a href = "mailto: sarah.elisabeth.werum@gmail.com">Email Sarah Werum</a>
+            </div>
+        </article>
+
+        <article>
             <!-- Table of Contents -->
-            <h2>Table of Contents</h2>
+            <h3>Projects</h3>
             <a href ="#EscapingHell">Escaping Hell</a> <br>
             <a href ="#MoonWaltz">Moon Waltz</a> <br>
+            <a href ="#Quantum">Quantum Physics Simulation</a> <br>
             <a href ="#MonsterRun">Monster Run</a> <br>
             <a href="#Queens">Eight Queens Puzzle</a>
         </article>
 
         <article>
-            <h2 id = "EscapingHell">Escaping Hell</h2>
+            <h3 id = "EscapingHell">Escaping Hell</h3>
             <img width="300" src= "EscapingHell_logo.png">
 
             <p> Escaping Hell is a 2D narrative Adventure video game made in GameMaker Studio 2. <br>
@@ -58,13 +79,13 @@
                 The game contains branching dialogue, an interactive storyline, a melee combat system, monsters with unique movement systems, 
                 a platformer area, multiple mini games, a JSON saving system, and Steam features such as cloud saving and achievements.      
             </p> 
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/C-OcH22Czfw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/C-Och32Czfw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <p>This game was released on <a href="https://store.steampowered.com/app/1378820/Escaping_Hell/">Steam</a> on August 20th 2020.</p>
             <a href="#TopOfPage">Return To Top</a><br><br>
         </article>
 
         <article>
-            <h2 id = "MoonWaltz">Moon Waltz</h2>
+            <h3 id = "MoonWaltz">Moon Waltz</h3>
             <p>      
                 Moon Waltz was originally released in 2013 as a Flash Game by Benedikt Hummel and Marius Fietzek. 
                 It is a 3 minute game, whose only input is deciding if the moon is visible at any given moment or not,
@@ -81,7 +102,18 @@
         </article>
 
         <article>
-            <h2 id = "MonsterRun"> Monster Run</h2>
+            <h3 id = "Quantum">Quantum Physics Simulation</h3>
+            <p>      
+                Quantum Physics Simulation is a interactive VR project made in Unity 3D as part of an Emory course on 3D Animation.
+                It objects and animations were created in AutoDesk 3DS Max and it movements and interactions were written in Unity in C#.
+                The Visualization includes animations of particles turning into waves and Quantum objects breaking out of Finite Potential Wells.
+                The Player can interact with their environment by catching and throwing particles or by placing or removing them from Finite or Infinite Potential wells.
+            </p> 
+            <a href="#TopOfPage">Return To Top</a><br><br>
+        </article>
+
+        <article>
+            <h3 id = "MonsterRun"> Monster Run</h3>
             <p>Monster Run, made in 2017, is a 2D Python game using the GUI simpleGUI on the page CodeSculptor and can be accessed <a href="http://www.codeskulptor.org/#user47_DEZFCnJ0ZW_9.py">here</a>.<br>
                 In an interesting twist on the Mario franchise, the player is a monster from the Mario series running from Mario himself. 
                 The player collects points by jumping over obstacles and collecting coins while attempting to escape his follower. 
@@ -92,7 +124,7 @@
         </article>
 
         <article>
-            <h2 id = "Queens"> Eight Queens Puzzle</h2>
+            <h3 id = "Queens"> Eight Queens Puzzle</h3>
             <p>
                 This Game was created on the Python site CodeSculptor in the year 2017, and can be viewed <a href="http://www.codeskulptor.org/#user47_mX0xkClzer_8.py">here</a>.<br>
                 The Eight Queens Puzzle is solved by placing eight Queens on a Chess Board so that none is able to reach each other in a single move.
