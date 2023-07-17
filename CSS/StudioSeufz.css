@@ -1,0 +1,40 @@
+#light {
+    background-color: #d900ff;
+}
+:root {
+    --defaultDropshadow: #52005e;
+}
+
+.studioMagenta img {
+    width : 400px;
+}
+
+
+.Project-Heading {
+    text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+    .Page-Body p {
+        margin-left: 30px;
+        margin-right: 20px;
+    }
+}
+@media screen and (min-width: 801px) {
+    .Page-Body p {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+
+
+@media screen and (max-width: 1100px) {
+    img.screenShot img {
+        width: 95%;
+    }
+}
+@media screen and (min-width: 1101px) {
+    img.screenShot {
+        width:45%;
+    }
+}

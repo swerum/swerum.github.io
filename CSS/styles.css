@@ -1,0 +1,176 @@
+/* Variables */
+:root {
+    --text-color: #dadbde;
+    --Mouse-color: #ffff0d;
+}
+
+/* Page */
+
+@font-face {
+    font-family: Roboto;
+    src: url(../Roboto/Roboto-Medium.ttf);
+    font-weight: bold;
+}
+@font-face {
+    font-family: Roboto;
+    src: url(../Roboto/Roboto-Light.ttf);
+    font-weight:normal;
+}
+div { padding: 10px 30px 10px 30px;}
+
+.Page-Body {
+    background-image: url("../Images/hex.png");
+    background-size: 100px;
+    background-repeat: repeat;
+    padding: 0;
+    object-fit: contain;
+    height: 100%;
+    text-align: center;
+    /* filter: blur(5px); */
+}
+body {
+    background-color: #171717;
+    color: var(--text-color);
+    font-family: Roboto;
+    margin : 0;
+} 
+
+/* ----------------------- HEADER ----------------------- */
+header {
+    background-color: #131313;
+    margin: 10px;
+    margin-left: 30px;
+    padding-left: 20px;
+    display:inline-block;
+    vertical-align:middle;
+    text-align: left;
+    width: 95%;
+    height: 90px;
+    border-radius: 10px;
+    font-size: small;
+}
+header div { 
+    margin: 10px;
+    font-size: 14px;
+    float: right;
+}
+header a img {
+    float: left;
+    height: 50px;
+    width: 50px;
+}
+@media screen and (max-width: 500px) {
+    header {
+        height: 140px;
+    }
+    header div {
+        float: left;
+        padding-left: 0px;
+    }
+    header a img {
+        margin-bottom: 0px;
+        padding-bottom: 0px;;
+    }
+}
+
+/* MAIN SECTION */
+section, img {
+    padding: 20px;
+}
+a figure img {
+    position: relative;
+}
+h1 , .Project-Heading{
+    text-align: center;
+}
+img {
+    width: 200px;
+    /* max-width: 400px; */
+}
+.image-text-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.image-text-row p {
+    width: 400px;
+    flex:auto;
+    text-align: left;
+}
+p {
+    text-align: left;
+    padding: 20px;
+}
+
+.wrapped-row p {
+    width: 400px;
+    flex: auto;
+}
+
+/* FIGURES: Link Images */
+.skill-section {
+    max-width: 1000px;
+}
+.skill-section figure {
+    text-align: center;
+    width: 80px;
+}
+figure img {
+    width: 100%; 
+    padding: 0px;
+    margin: 0px;
+}
+figcaption {
+    color: var(--text-color);
+    /* width: 100%; */
+    margin-top: 20px;
+    /* padding: 0px; */
+    text-align: center;
+}
+@media screen and (max-width:419px) {
+    /* .skill-section figure {
+        margin:15px;
+    } */
+    .skill-section {
+        padding : 0px;
+    }
+}
+
+a {
+    color: var(--text-color);
+}
+
+/* WRAPPED ROW */
+.wrapped-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items:baseline;
+}
+
+/* EXTRA */
+hr.seperator {
+    border-top: 1px dashed #bbb;
+    border-bottom: none;
+}
+#light {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(var(--light-position-x, 0px), var(--light-position-y, 0px));
+    background-color: var(--Mouse-color);
+    filter: blur(40px);
+    z-index: -1;
+}
+
+@media screen and (max-width:600px) {
+    .image-text-row h1 {
+        font-size: 30px;
+    }
+    .image-text-row h2 {
+        font-size: 25px;
+    }
+}

@@ -1,0 +1,40 @@
+
+#light {
+    background-color: #ffff0d;
+}
+img {
+    max-width: 200px;
+}
+
+:root {
+    --defaultDropshadow: #a8a820;
+}
+
+.Page-Body p {
+    margin-left: 80px;
+    margin-right: 50px;
+}
+
+@media screen and (max-width: 800px) {
+    .Page-Body p {
+        margin-left: 30px;
+        margin-right: 20px;
+    }
+}
+
+@media screen and (max-width : 989px) {
+    .smallScreen {
+        display:inline-block;
+    }
+    .bigScreen {
+        display: none;
+    }
+}
+@media screen and (min-width : 990px) {
+    .smallScreen {
+        display:none;
+    }
+    .bigScreen {
+        display: inline-block;
+    }
+}

@@ -1,0 +1,37 @@
+#light {
+    background-color: rgb(192, 192, 192);
+    
+}
+:root {
+    --defaultDropshadow: #b6b9c4;
+}
+.image-text-row img {
+    width: 300px;
+}
+.image-text-row p {
+    max-width: 700px;
+}
+
+/* work experience icon sizes */
+figure.studioMagenta  {
+    width: 300px;
+}
+.experience-section a figure.yellowDropshadow {
+    width:200px;
+}
+.experience-section a figure.steam-icon-parent {
+    width: 200px;
+}
+
+/* little steam icon under the escaping hell icon */
+#steam-icon {
+    height: 80px;
+    width: 80px;
+    position: absolute;
+    left: 60%;
+    top: 50%;
+}
+
+.steam-icon-parent {
+    position: relative;
+}
