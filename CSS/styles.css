@@ -26,6 +26,7 @@ div { padding: 10px 30px 10px 30px;}
     object-fit: contain;
     height: 100%;
     text-align: center;
+    font-size: 22px;
     /* filter: blur(5px); */
 }
 body {
@@ -92,11 +93,13 @@ img {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    /* max-width: 800px; */
 }
-.image-text-row p {
+.image-text-row p, .image-text-row .description-paragraph  {
     width: 400px;
     flex:auto;
     text-align: left;
+    max-width: inherit;
 }
 p {
     text-align: left;

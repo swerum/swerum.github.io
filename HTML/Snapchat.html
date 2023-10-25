@@ -26,21 +26,27 @@
             </div>
         </div>
         <p>
-            While I had already been making my games and designs for a while, at Snapchat, 
-            I learned to make polished, proffessional looking UX and designs. I was mentored by my peers, 
-            who had studied and worked as designers for years and was able to greatly improve my design skills.
+            The way I typically explain my job to people is "I make Snapchat filters." The workflow is a 
+            mixture of game and web design. I make concept art and mock behaviors for product managers, design UI, create 
+            lens assets, and script the behavior of the lens (Snap's official name for Filters). Some lenses include user input such as touch, speech to text, 
+            or even cues like head movements. Others use user data, remote APIs, shaders, physics and collisions, 
+            audio or particle systems. 
+            
             <br><br>
             I started in the team responsible for making developer tools for Lens Studio: Templates, Asset Library scripts and Prefabs.
             In this role, my UI had to be simple and subdued to encourage developers to mentally insert their own designs. 
             My code too, had to be modular and easy to understand, while providing non-coding creators with all the tools they would need
             to create simpler experiences. 
             <br><br>
-            With time, I was also able to branch into my own creative explorations. I was moved to a user experience
-            focused team, where my job was to create prototypes for future projects, provide feedback for internal tools,
-            support backend developers when designing new features, and write up my own feature requests for future Snapchat 
-            filter mechanics and archetypes. <br>
-            I used primarily Figma to make my concept art for feature proposals or for whipping up some simple UI Textures. 
-            I would then create prototypes using Lens Studio and Javascript, occasionally using Blender for some more complex 3D Graphics.
+            With time, I was also able to branch into my own creative explorations. I moved to a user experience
+            focused team, where my job was to work with backend and client-side developers to roll out new features. I created 
+            prototypes as well as production-ready lenses and provided feedback on the feature. This usually included Developer 
+            Experience Feedback and ideas for how the feature could be expanded to encompass more use cases. After the first version,
+            I would typically create some helper tools and example projects, so that our content teams could more easily create their 
+            own lenses. <br>
+
+            In terms of tooling, I used Figma to make my concept art for feature proposals Photoshop to create the art assets in my Lenses. 
+            I would then create lenses using Lens Studio and Javascript, occasionally using Blender for some more complex 3D Graphics.
             <br><br>
             Because of the exploratory nature of my job, many of my projects are not open to be shared. 
             Thus, below you'll find only the projects I worked on that have since been released to the public.
@@ -49,9 +55,11 @@
 
         <!-- DIALOG ML -->
         <div class="image-text-row">
-            <div><img src="../Images/Snapchat/QnA-Template.png" alt="Question Answering Service Template Preview"></div>
-            <div><img src="../Images/Snapchat/qna-snapcode.png" alt="Question Answering Service Template Snapcode"></div>
-            <p> 
+            <div>
+                <img src="../Images/Snapchat/QnA-Template.png" alt="Question Answering Service Template Preview">
+                <img src="../Images/Snapchat/qna-snapcode.png" alt="Question Answering Service Template Snapcode">
+            </div>
+            <div class="description-paragraph"> 
                 <strong>Dialogue ML Model</strong><br>
                 My first major project at Snapchat was to create a Template for developers to use when making Snapchat Lenses - aka. Filters - using the Dialogue Machine Learning Model. 
                 This model can answer the user's question using a few paragraphs of context data. 
@@ -59,24 +67,44 @@
                 no-code customization options. In the process, I gave feedback and suggestions for future versions to the team that had made the model. 
                 I then documented both the ML model and the template itself and 
                 published the template for developers. 
-            </p>
+            </div>
         </div>
         <!-- <hr class="seperator"> -->
         
         <!-- ILDG -->
         <div class="image-text-row">
-            <div><img src="../Images/Snapchat/ILDGBadge-Token.png" class="smallScreen" alt="Question Answering Service Template Preview"></div>
-            <p> 
+            <div class="smallScreen"><img src="../Images/Snapchat/ILDGBadge-Token.png" alt="In Lens Digital Purchases Token"></div>
+            <div class="description-paragraph"> 
                 <a href="https://techcrunch.com/2022/12/06/snapchat-is-testing-lenses-with-power-ups-and-upgrades-that-you-can-buy/">
                     <strong>In Lens Digital Goods</strong><br></a>
-                After Snap's tumultuous layoffs, I was chosen to take over the AR side of In Lens Digital Goods: the then upcoming ability for developers to include microtransactions in their Lenses.
+                I handled Developer Experience for In-Lens Digital Goods: the then-upcoming feature for developers to include microtransactions in their Lenses.
                 I scripted example projects and helper tools for early access developers to use, collected feedback, and helped the initial external developers to debug their code.
                 Together with our client-side developers, I planned out the API calls necessary for developers to add purchasing and spending to their lenses and ensured that this important new feature 
                 was not only functional, but usable for even developers with little coding experience.
-
-            </p>
-            <div><img src="../Images/Snapchat/ILDGBadge-Token.png" class="bigScreen" alt="Question Answering Service Template Preview"></div>
+                </div>
+            <div class="bigScreen"><img src="../Images/Snapchat/ILDGBadge-Token.png" alt="In Lens Digital Purchases Token"></div>
         </div>
+        <!-- Monster Maker -->
+        <div class="image-text-row">
+            <div class="Monster-Maker-Snapcodes"><img src="../Images/Snapchat/Group.png" alt="Monster Maker Preview"></div>
+            <div class="description-paragraph"> 
+                <strong>Creative Content Testing</strong><br>
+                As a developer, I not only enjoy creating more complex experiences, but I think they provide more value to the user.
+                However, the accepted wisdom in social media companies is that any increase in complexity will cause users' attention to fall off. 
+                As a result, I decided to set up an AB Test designed to test this hypothesis. Using the same art 
+                assets - Monster Costume parts, such as horns or eyes - and similar UI, I created four Lenses with 
+                slightly differing behaviors.
+                <ul>
+                    <li>The Control: no interaction. The lens turns you into a little monster.</li>
+                    <li>The Carousel: You can scroll through a couple different Monster configurations.</li>
+                    <li>Fully Configurable: You can open a menu, where you pick which assets - horns, makeup, etc. - to equip</li>
+                    <li>Fully Configurable with Saving: the same as above but you can save your configurations for later.</li>
+                </ul>
+            </div>
+            <!-- <div><img src="../Images/Snapchat/ILDGBadge-Token.png" class="bigScreen" alt="Question Answering Service Template Preview"></div> -->
+        </div>
+
+
         <!-- <hr class="seperator"> -->
         <h2 class="Project-Heading">Skills used here</h2>
         <div class="wrapped-row">
@@ -109,6 +137,12 @@
                     <figure class="lightPurple">
                         <img src="../Images/Skill Logos/Softwares/github-logo.png" alt="Github Logo">
                         <figcaption>Github</figcaption>
+                    </figure>
+                </a>
+                <a href="https://www.adobe.com/products/photoshop.html">
+                    <figure class="blueDropshadow">
+                        <img src="../Images/Skill Logos/Softwares/Photoshop.webp" alt="Photoshop Logo">
+                        <figcaption>Photoshop</figcaption>
                     </figure>
                 </a>
             </div>

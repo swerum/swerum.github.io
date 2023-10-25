@@ -6,13 +6,32 @@ img {
     max-width: 200px;
 }
 
+/* 
+div {
+    outline-style: solid;
+    outline-width: 2px;
+} */
 :root {
     --defaultDropshadow: #a8a820;
+}
+.image-text-row div img {
+    vertical-align: middle;
 }
 
 .Page-Body p {
     margin-left: 80px;
     margin-right: 50px;
+}
+
+.Monster-Maker-Snapcodes img {
+    min-width: 400px;
+}
+
+li {
+    text-align: left;
+    /* margin-left: 10%; */
+    list-style-type: square;
+    list-style-position: outside;
 }
 
 @media screen and (max-width: 800px) {
@@ -28,11 +47,14 @@ img {
     }
     .bigScreen {
         display: none;
+        padding: 0%;
     }
 }
 @media screen and (min-width : 990px) {
     .smallScreen {
         display:none;
+        margin: 0;
+        padding: 0%;
     }
     .bigScreen {
         display: inline-block;

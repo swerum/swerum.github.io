@@ -13,15 +13,14 @@
 }
 
 /* work experience icon sizes */
+.experience-section figure {
+    width: 200px;
+}
+
 figure.studioMagenta  {
     width: 300px;
 }
-.experience-section a figure.yellowDropshadow {
-    width:200px;
-}
-.experience-section a figure.steam-icon-parent {
-    width: 200px;
-}
+
 
 /* little steam icon under the escaping hell icon */
 #steam-icon {
