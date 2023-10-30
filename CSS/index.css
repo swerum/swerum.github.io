@@ -1,36 +1,46 @@
-#light {
-    background-color: rgb(192, 192, 192);
-    
-}
+
 :root {
-    --defaultDropshadow: #b6b9c4;
-}
-.image-text-row img {
-    width: 300px;
-}
-.image-text-row p {
-    max-width: 700px;
+    --desk-item-size : 25%
 }
 
-/* work experience icon sizes */
-.experience-section figure {
-    width: 200px;
+.desk-area {
+    display:flex;
+    flex-direction: column; 
+    flex-wrap: wrap;
+}
+.desk-item {
+    outline: auto;
+    outline-color: aliceblue;
+    outline-width: 5px;
 }
 
-figure.studioMagenta  {
-    width: 300px;
+.desk-item {
+    width: var(--desk-item-size);
+    margin: 5%;
+}
+.desk-item img {
+    height: 100%;
 }
 
-
-/* little steam icon under the escaping hell icon */
-#steam-icon {
-    height: 80px;
-    width: 80px;
-    position: absolute;
-    left: 60%;
-    top: 50%;
+.paint-pallette {
+    height: 80%;
+}
+.skill-sticker {
+    width: 40%;
 }
 
-.steam-icon-parent {
+/* overlapping studio seufz cartridges */
+.cartridge-stack {
     position: relative;
+    width: 50%;
+    text-align: left;
+}
+.cartridge-stack img {
+    width: 50%;
+}
+.overlapping-cartridge {
+    position: absolute;
+    left: 35%;
+    top: 15%;
+    transform: rotate(30deg);
 }
