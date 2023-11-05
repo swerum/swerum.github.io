@@ -1,14 +1,29 @@
 /* Page */
 
-body {
+.desk-area {
     background-image: url("../Images/Desk\ Visuals/desk.png");
-    background-repeat:no-repeat;
-    /* object-fit:fill; */
-    /* height: 100%; */
+    /* background-repeat:no-repeat; */
+    /* background-size: 100%; */
     /* text-align: center; */
     /* font-size: 22px; */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+/* canvas {
+    background: none;
+    height: 100%;
+    width: 100%;
+} */
+html, body {
+    height: 100%;
+    width: 100%;
 }
 body {
     background-color: #9b7254;
 } 
 
+img {
+    max-width: 100%;
+    max-height: fit-content;
+}
