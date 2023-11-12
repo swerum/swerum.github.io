@@ -1,21 +1,37 @@
 
-const percentageEmptySpace = 0.4;
+const percentageEmptySpace = 0.6;
 
-//ISSUE: Canvas resizes via css so if it's rectangular, it will squinch all the images in it. 
-// a 10x10 imge in a 20x10 canvas will be rectangular! --> thanks, i hate it.
-$(document).ready(function() {
+window.onload = function(){
+    //init canvas
     /**@type {HTMLElement} */ var canvas = document.getElementById("desk-canvas");
     var body = canvas.parentElement;
     // console.log(body.width());
     canvas.width = body.offsetWidth;
     canvas.height = body.offsetHeight;
-});
 
-window.onload = function(){
+    //add images
     var imgArray = getImages();
     imgArray = setSizes(imgArray);
-    simulateDistribution(imgArray);
+    // simulateDistribution(imgArray);
+    updateFrame();
+
+    function updateFrame() {
+        // console.log("update frame");
+        requestAnimationFrame(updateFrame);
+        simulateDistribution(imgArray);
+    }
 };
+
+//
+console.log("TESTING ----------------------------");
+testPressure(10, 0);
+testPressure(10, 2);
+testPressure(10, 9);
+testPressure(10, 20);
+function testPressure(radius, dist) {
+    var pressure =  pressureFunction(radius, dist);
+    console.log("for radius "+radius+" and dist "+dist+" , the pressure is "+pressure);
+}
 
 
 function getImages() {
@@ -49,7 +65,7 @@ function setSizes(imgArray) {
     // and set their width and height using imageInfo. default ratio is 1:1
     //get desk ratio
     var canvas = document.getElementById("desk-canvas");
-    console.log(canvas);
+    // console.log(canvas);
     var deskArea = canvas.width * canvas.height;
 
     //add up sum of desk items
@@ -69,67 +85,77 @@ function setSizes(imgArray) {
         var ratio = img.width /img.height;
         obj.height = obj.height * gridSize;
         obj.width = obj.height  * ratio;
-        // console.log(Math.random)
         obj.x = Math.random() * (canvas.width - obj.width)
         obj.y = Math.random() * (canvas.height - obj.height);
-        console.log(obj.img.alt+": "+obj.x+", "+obj.y);
-        // ctx.drawImage(img, obj.x, obj.y, obj.width, obj.height); //not really needed here yet
-    });
+     });
     return imgArray;
 }
 
 function simulateDistribution(imgArray) {
     const canvas = document.getElementById("desk-canvas");
     const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     const moveAmount = 5;
-    console.log("simulate distribution");
+    // console.log("simulate distribution");
     //check for overlap of the images (assuming square bounding box) 
     // while there is overlap, move the images away from each other like a fluid simulation
-    var counter = 0;
-    while (true) {
-        var hasMoved = false;
-        for (let i = 0; i < imgArray.length; i++) {
-            for (let j = 0; j < imgArray.length; j++) {
-                if (i === j) continue;
-                const obj1 = imgArray[i];
-                const obj2 = imgArray[j];
-                if (overlap(obj1, obj2)) {
-                    // console.log("overlap");
-                    obj1.x = getNewPos(obj1.x, canvas.width);
-                    obj1.y = getNewPos(obj1.y, canvas.height);
-                    hasMoved = true;
-                }
-            }
-        }
-        counter ++;
-        if (counter > 9) break;
-    }
-
-    //redraw the items to their new positions
     imgArray.forEach(obj => {
         /**@type {HTMLImageElement} */ var img = obj.img;
         ctx.drawImage(img, obj.x, obj.y, obj.width, obj.height); //not really needed here yet
     });
-    
-
-    function overlap(obj1, obj2) {
-        var overlapX = overlap_oneDimenal(obj1.x, obj1.width, obj2.x, obj2.width);
-        var overlapY = overlap_oneDimenal(obj1.y, obj1.height, obj2.y, obj2.height);
-        return overlapX && overlapY;
-
-        //positions are at the top left corner of the image
-        function overlap_oneDimenal(pos1, size1, pos2, size2) {
-            if (pos1 > pos2 && pos1 < pos2 + size2) return true;
-            if (pos2 > pos1 && pos2 < pos1 + size1) return true;
-            return false;
+    //move
+    for (let i = 0; i < imgArray.length; i++) {
+        const target = imgArray[i];
+        //add a vector for each img
+        var vec = calculatePressureVector(target, imgArray);
+        if (target.x + vec.x > 0 && target.x + vec.x + target.width < canvas.width) {
+            target.x += vec.x;
         }
+        // if (target.y + vec.y > 0 && target.y + vec.y + target.height < canvas.height) {
+        //     target.y += vec.y;
+        // }
     }
 
-    function getNewPos(coord, canvasSize) {
-        var direction;
-        if (coord < moveAmount) { direction = 1; }
-        else if (coord > canvasSize - moveAmount) { direction = -1; }
-        else { direction = Math.ceil(Math.random() -0.5); }
-        return coord +direction *moveAmount;
+    //redraw the items to their new positions
+    // imgArray.forEach(obj => {
+    //     /**@type {HTMLImageElement} */ var img = obj.img;
+    //     ctx.drawImage(img, obj.x, obj.y, obj.width, obj.height); //not really needed here yet
+    // });
+
+    function calculatePressureVector(target, imgArray) {
+        var vec = { x: 0, y : 0};
+        //add up pressure from each other image on screen
+        for (let j = 0; j < imgArray.length; j++) {
+            const source = imgArray[j];
+            if (target == source) continue;
+            var dir = getPressureFromImg(target, source);
+            // getPressureFromImg(target, source);
+            vec.x += dir.x;
+            vec.y += dir.y;
+        }
+        vec.x = vec.x * moveAmount;
+        vec.y = vec.y * moveAmount;
+        // console.log(target.img.alt+" should move in direction "+vec.x+", "+vec.y);
+        // const threshhold = 0.2;
+        // if (vec.x < threshhold) { vec.x = 0; }
+        // if (vec.y < threshhold) { vec.y = 0; }
+        if (vec.x) { console.log(target.img.alt+": "+vec.x); }
+        return vec;
     }
+
+    function getPressureFromImg(target, source) { //source enacts pressure on target
+        var distance = {
+            x : (target.x + target.width/2) - (source.x + source.width / 2),
+            y : (target.y + target.height/2) - (source.y + source.height / 2)
+        };
+        var pressure = {
+            x : Math.sign(distance.x) * pressureFunction(source.width, Math.abs(distance.x)),
+            y : Math.sign(distance.y) * pressureFunction(source.height, Math.abs(distance.y)),
+        };
+        return pressure;
+    }
+}
+
+function pressureFunction(radius, dist) {
+    return Math.max(0, 1.0 - dist*dist/(radius*radius));
 }
