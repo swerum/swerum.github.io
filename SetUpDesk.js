@@ -1,46 +1,48 @@
 
-const percentageEmptySpace = 0.6;
+const percentageEmptySpace = 0.5;
+const canvasSizePercentage = 0.8; //80% of the page
+const maxIterations = 100;
 
-window.onload = function(){
+window.onload = initialize;
+window.onresize = initialize;
+
+function initialize(){
     //init canvas
     /**@type {HTMLElement} */ var canvas = document.getElementById("desk-canvas");
     var body = canvas.parentElement;
-    // console.log(body.width());
-    canvas.width = body.offsetWidth;
-    canvas.height = body.offsetHeight;
+    var margin = Math.min(body.offsetHeight, body.offsetWidth) * (1 - canvasSizePercentage);
+    console.log("h: "+canvas.height+", margin: "+margin);
+    canvas.width = body.offsetWidth - margin;
+    canvas.height = body.offsetHeight - margin;
 
     //add images
     var imgArray = getImages();
     imgArray = setSizes(imgArray);
-    // simulateDistribution(imgArray);
-    updateFrame();
-
-    function updateFrame() {
-        // console.log("update frame");
-        requestAnimationFrame(updateFrame);
-        simulateDistribution(imgArray);
-    }
+    simulateDistribution(imgArray);
+    setBackgroundImage(canvas);
 };
 
-//
-console.log("TESTING ----------------------------");
-testPressure(10, 0);
-testPressure(10, 2);
-testPressure(10, 9);
-testPressure(10, 20);
-function testPressure(radius, dist) {
-    var pressure =  pressureFunction(radius, dist);
-    console.log("for radius "+radius+" and dist "+dist+" , the pressure is "+pressure);
+function setBackgroundImage(canvas) {
+    document.body.style.backgroundImage = "url('Images/Desk\ Visuals/desk.png')";
+    if (canvas.width > canvas.height) {
+        //wide or landscape
+    } else {
+        //tall or portrait mode
+        // document.body.style.background-size = ""+canvas.height+"px "+canvas.width+"px";
+        console.log("portrait");
+        document.body.style.background.transform = "rotate(90deg)";
+
+    }
 }
 
 
 function getImages() {
     var imageInfoArray = [
-        { width : 3, height : 3, className : "palette" },
-        { width : 2, height : 2, className : "LuckyTower" },
-        { width : 2, height : 2, className : "MoonWaltz" },
-        { width : 2, height : 2, className : "EscapingHell" },
-        { width : 2, height : 3, className : "Phone" },
+        { width : 6, height : 6, className : "palette" },
+        { width : 4, height : 4, className : "LuckyTower" },
+        { width : 4, height : 4, className : "MoonWaltz" },
+        { width : 4, height : 4, className : "EscapingHell" },
+        { width : 4, height : 4, className : "Phone" },
     ];
     //using img tag, get all images and store them in images array
     var imgArray = [];
@@ -99,63 +101,56 @@ function simulateDistribution(imgArray) {
     // console.log("simulate distribution");
     //check for overlap of the images (assuming square bounding box) 
     // while there is overlap, move the images away from each other like a fluid simulation
+    // var hasMoved = true;
+    for (let i = 0; i < maxIterations; i++) {
+        var hasMoved = false;
+        for (let i = 0; i < imgArray.length; i++) {
+            for (let j = 0; j < imgArray.length; j++) {
+                if (i === j) continue;
+                const obj1 = imgArray[i];
+                const obj2 = imgArray[j];
+                if (overlap(obj1, obj2)) {
+                    hasMoved = true;
+                    // console.log("overlap");
+                    var xDirection = getDirections(obj1.x , obj2.x);
+                    var yDirection = getDirections(obj1.y , obj2.y);
+                    moveObj(obj1, xDirection, yDirection);
+                    moveObj(obj2, -xDirection, -yDirection);
+                }
+            }
+        }
+        if (!hasMoved) break;
+    }
+
+    //redraw the items to their new positions
     imgArray.forEach(obj => {
         /**@type {HTMLImageElement} */ var img = obj.img;
         ctx.drawImage(img, obj.x, obj.y, obj.width, obj.height); //not really needed here yet
     });
-    //move
-    for (let i = 0; i < imgArray.length; i++) {
-        const target = imgArray[i];
-        //add a vector for each img
-        var vec = calculatePressureVector(target, imgArray);
-        if (target.x + vec.x > 0 && target.x + vec.x + target.width < canvas.width) {
-            target.x += vec.x;
+    
+
+    function overlap(obj1, obj2) {
+        var overlapX = overlap_oneDimenal(obj1.x, obj1.width, obj2.x, obj2.width);
+        var overlapY = overlap_oneDimenal(obj1.y, obj1.height, obj2.y, obj2.height);
+        return overlapX && overlapY;
+
+        //positions are at the top left corner of the image
+        function overlap_oneDimenal(pos1, size1, pos2, size2) {
+            if (pos1 > pos2 && pos1 < pos2 + size2) return true;
+            if (pos2 > pos1 && pos2 < pos1 + size1) return true;
+            return false;
         }
-        // if (target.y + vec.y > 0 && target.y + vec.y + target.height < canvas.height) {
-        //     target.y += vec.y;
-        // }
     }
-
-    //redraw the items to their new positions
-    // imgArray.forEach(obj => {
-    //     /**@type {HTMLImageElement} */ var img = obj.img;
-    //     ctx.drawImage(img, obj.x, obj.y, obj.width, obj.height); //not really needed here yet
-    // });
-
-    function calculatePressureVector(target, imgArray) {
-        var vec = { x: 0, y : 0};
-        //add up pressure from each other image on screen
-        for (let j = 0; j < imgArray.length; j++) {
-            const source = imgArray[j];
-            if (target == source) continue;
-            var dir = getPressureFromImg(target, source);
-            // getPressureFromImg(target, source);
-            vec.x += dir.x;
-            vec.y += dir.y;
-        }
-        vec.x = vec.x * moveAmount;
-        vec.y = vec.y * moveAmount;
-        // console.log(target.img.alt+" should move in direction "+vec.x+", "+vec.y);
-        // const threshhold = 0.2;
-        // if (vec.x < threshhold) { vec.x = 0; }
-        // if (vec.y < threshhold) { vec.y = 0; }
-        if (vec.x) { console.log(target.img.alt+": "+vec.x); }
-        return vec;
+    function getDirections(pos1, pos2) {
+        var dir = Math.sign(pos1 - pos2);
+        return dir;
     }
-
-    function getPressureFromImg(target, source) { //source enacts pressure on target
-        var distance = {
-            x : (target.x + target.width/2) - (source.x + source.width / 2),
-            y : (target.y + target.height/2) - (source.y + source.height / 2)
-        };
-        var pressure = {
-            x : Math.sign(distance.x) * pressureFunction(source.width, Math.abs(distance.x)),
-            y : Math.sign(distance.y) * pressureFunction(source.height, Math.abs(distance.y)),
-        };
-        return pressure;
+    function moveObj(obj, xDirection, yDirection) {
+        var newX = obj.x + xDirection * moveAmount;
+        if (newX < 0 || newX > canvas.width - obj.width) newX = obj.x;
+        var newY = obj.y + yDirection * moveAmount;
+        if (newY < 0 || newY > canvas.height - obj.height) newY = obj.y;
+        obj.x = newX;
+        obj.y = newY;
     }
-}
-
-function pressureFunction(radius, dist) {
-    return Math.max(0, 1.0 - dist*dist/(radius*radius));
 }
