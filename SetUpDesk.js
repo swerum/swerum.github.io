@@ -1,22 +1,44 @@
 
 const percentageEmptySpace = 0.5;
-const canvasSizePercentage = 0.8; //80% of the page
-const maxIterations = 100;
+const canvasSizePercentage = 0.9; //80% of the page
+const maxIterations = 300;
 
 window.onload = initialize;
 window.onresize = initialize;
+
+var imgArray;
+var ctx;
+
+var links = {
+    "palette"       :  "HTML/Portfolio.html",
+    "Seufz"         :  "HTML/Seufz.html",
+    "EscapingHell"  :  "HTML/EscapingHell.html",
+    "Phone"         :  "HTML/Snapchat.html",       
+    "Blender"       : "",
+    "C#"            : "",
+    "Figma"         : "",
+    "GameMaker"     : "",
+    "Github"        : "",
+    "Java"          : "",
+    "JS"            : "",
+    "LensStudio"    : "",
+    "Phaser"        : "",
+    "Photoshop"     : "",
+    "Steam"         : "",
+    "Unity"         : "",
+};
 
 function initialize(){
     //init canvas
     /**@type {HTMLElement} */ var canvas = document.getElementById("desk-canvas");
     var body = canvas.parentElement;
     var margin = Math.min(body.offsetHeight, body.offsetWidth) * (1 - canvasSizePercentage);
-    console.log("h: "+canvas.height+", margin: "+margin);
+    // console.log("h: "+canvas.height+", margin: "+margin);
     canvas.width = body.offsetWidth - margin;
     canvas.height = body.offsetHeight - margin;
 
     //add images
-    var imgArray = getImages();
+    imgArray = getImages();
     imgArray = setSizes(imgArray);
     simulateDistribution(imgArray);
     setBackgroundImage(canvas);
@@ -30,6 +52,7 @@ function setBackgroundImage(canvas) {
         //tall or portrait mode
         // document.body.style.background-size = ""+canvas.height+"px "+canvas.width+"px";
         console.log("portrait");
+        // document.body.style.backgroundImage.
         document.body.style.background.transform = "rotate(90deg)";
 
     }
@@ -39,22 +62,22 @@ function setBackgroundImage(canvas) {
 function getImages() {
     var imageInfoArray = [
         { width : 6, height : 6, className : "palette" },
-        { width : 4, height : 4, className : "LuckyTower" },
-        { width : 4, height : 4, className : "MoonWaltz" },
+        { width : 6, height : 4, className : "Seufz" },
         { width : 4, height : 4, className : "EscapingHell" },
-        { width : 4, height : 4, className : "Phone" },
+        { width : 4, height : 6, className : "Phone" },
     ];
     //using img tag, get all images and store them in images array
     var imgArray = [];
     var imagesOnDocument = document.getElementsByTagName ("img");
     for (let j = 0; j < imagesOnDocument.length; j++) {
         const image = imagesOnDocument[j];
-        var obj = { img : image, width : 1, height: 1};
+        var obj = { img : image, width : 1, height: 1, link : links[image.className]};
         for (let i = 0; i < imageInfoArray.length; i++) {
             const imageInfo = imageInfoArray[i];
             if (image.className === imageInfo.className) {
                 obj.width = imageInfo.width;
                 obj.height = imageInfo.height;
+                console.log(obj.img.src);
                 imageInfoArray.splice(i, 1);
                 break;
             }
@@ -123,10 +146,7 @@ function simulateDistribution(imgArray) {
     }
 
     //redraw the items to their new positions
-    imgArray.forEach(obj => {
-        /**@type {HTMLImageElement} */ var img = obj.img;
-        ctx.drawImage(img, obj.x, obj.y, obj.width, obj.height); //not really needed here yet
-    });
+    drawDeskItems(ctx);
     
 
     function overlap(obj1, obj2) {
@@ -136,8 +156,9 @@ function simulateDistribution(imgArray) {
 
         //positions are at the top left corner of the image
         function overlap_oneDimenal(pos1, size1, pos2, size2) {
-            if (pos1 > pos2 && pos1 < pos2 + size2) return true;
-            if (pos2 > pos1 && pos2 < pos1 + size1) return true;
+            var margin = 5;
+            if (pos1 > pos2-margin && pos1 < pos2 + size2 + margin) return true;
+            if (pos2 > pos1-margin && pos2 < pos1 + size1 + margin) return true;
             return false;
         }
     }
@@ -146,11 +167,48 @@ function simulateDistribution(imgArray) {
         return dir;
     }
     function moveObj(obj, xDirection, yDirection) {
+        var margins = 35;
         var newX = obj.x + xDirection * moveAmount;
-        if (newX < 0 || newX > canvas.width - obj.width) newX = obj.x;
+        if (newX < margins || newX > canvas.width - obj.width - margins) newX = obj.x;
         var newY = obj.y + yDirection * moveAmount;
-        if (newY < 0 || newY > canvas.height - obj.height) newY = obj.y;
+        if (newY < margins || newY > canvas.height - obj.height-margins) newY = obj.y;
         obj.x = newX;
         obj.y = newY;
     }
+}
+
+function drawDeskItems(ctx, selectedImage) {
+    imgArray.forEach(obj => {
+        /**@type {HTMLImageElement} */ var img = obj.img;
+        var sizeIncrease = (obj === selectedImage) ? 6 : 0;
+        ctx.drawImage(img, obj.x-sizeIncrease/2, obj.y-sizeIncrease/2, obj.width+sizeIncrease, obj.height+sizeIncrease); //not really needed here yet
+    });
+}
+
+function drawImageOutline(ctx, canvas, obj) {
+    var dArr = [
+        [ -1,-1, ],
+        [ 0,-1, ],
+        [ 1,-1, ],
+        [ -1,0, ],
+        [ 1,0, ],
+        [ -1,1, ],
+        [ 0,1, ],
+        [ 1,1]
+    ]; // offset array
+    var outlineStrength = 10;  // thickness scale
+    
+    // draw images at offsets from the array scaled by s
+    for(var i = 0; i < dArr.length; i ++) {
+        var x = obj.x + dArr[i][0]*outlineStrength;
+        var y = obj.y + dArr[i][1]*outlineStrength;
+        ctx.drawImage(obj.img, x, y, obj.width, obj.height);
+    }
+    // fill with color
+    ctx.globalCompositeOperation = "source-in";
+    ctx.fillStyle = "#deb4ea";
+    ctx.fillRect(0,0,canvas.width, canvas.height);
+    
+    // draw original image in normal mode
+    ctx.globalCompositeOperation = "source-over";
 }

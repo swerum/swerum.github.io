@@ -7,23 +7,17 @@
     padding: 10%;
 }
 
-.background-image {
-    content : "";
-    background: url("../Images/Desk\ Visuals/desk.png");
-    position: absolute;
-    /* height: 200%;
-    width: 200%;
-    top: -50%;
-    left: -50%;
-    z-index: -1; */
-}
-
 html, body {
     height: 100%;
     width: 100%;
+    /* transform: rotate(-90deg); */
 }
 body {
     background-color: #9b7254;
+    /* position: absolute;
+    z-index: -1;
+    content: ""; */
+    /* transform: rotate(90deg); */
 } 
 
 img {
