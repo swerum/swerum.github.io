@@ -10,7 +10,6 @@
 html, body {
     height: 100%;
     width: 100%;
-    /* transform: rotate(-90deg); */
 }
 body {
     background-color: #9b7254;

@@ -10,22 +10,22 @@ var imgArray;
 var ctx;
 
 var links = {
-    "palette"       :  "HTML/Portfolio.html",
-    "Seufz"         :  "HTML/Seufz.html",
-    "EscapingHell"  :  "HTML/EscapingHell.html",
-    "Phone"         :  "HTML/Snapchat.html",       
-    "Blender"       : "",
-    "C#"            : "",
-    "Figma"         : "",
-    "GameMaker"     : "",
-    "Github"        : "",
-    "Java"          : "",
-    "JS"            : "",
-    "LensStudio"    : "",
-    "Phaser"        : "",
-    "Photoshop"     : "",
-    "Steam"         : "",
-    "Unity"         : "",
+    "palette"       : "HTML/Portfolio.html",
+    "Seufz"         : "HTML/Seufz.html",
+    "EscapingHell"  : "HTML/EscapingHell.html",
+    "Phone"         : "HTML/Snapchat.html",       
+    "Blender"       : "https://www.blender.org/",
+    "C#"            : "https://learn.microsoft.com/en-us/dotnet/csharp/",
+    "Figma"         : "https://www.figma.com/",
+    "GameMaker"     : "https://gamemaker.io/en",
+    "Github"        : "https://github.com/",
+    "Java"          : "https://www.java.com/en/",
+    "JS"            : "https://www.javascript.com/",
+    "LensStudio"    : "https://ar.snap.com/lens-studio",
+    "Phaser"        : "https://phaser.io/",
+    "Photoshop"     : "https://www.adobe.com/products/photoshop.html",
+    "Steam"         : "https://partner.steamgames.com/doc/sdk",
+    "Unity"         : "https://unity.com/",
 };
 
 function initialize(){
@@ -63,7 +63,7 @@ function getImages() {
     var imageInfoArray = [
         { width : 6, height : 6, className : "palette" },
         { width : 6, height : 4, className : "Seufz" },
-        { width : 4, height : 4, className : "EscapingHell" },
+        { width : 3, height : 4, className : "EscapingHell" },
         { width : 4, height : 6, className : "Phone" },
     ];
     //using img tag, get all images and store them in images array
@@ -196,7 +196,7 @@ function drawImageOutline(ctx, canvas, obj) {
         [ 0,1, ],
         [ 1,1]
     ]; // offset array
-    var outlineStrength = 10;  // thickness scale
+    var outlineStrength = 7;  // thickness scale
     
     // draw images at offsets from the array scaled by s
     for(var i = 0; i < dArr.length; i ++) {
@@ -206,7 +206,7 @@ function drawImageOutline(ctx, canvas, obj) {
     }
     // fill with color
     ctx.globalCompositeOperation = "source-in";
-    ctx.fillStyle = "#deb4ea";
+    ctx.fillStyle = "#5d4a4092";
     ctx.fillRect(0,0,canvas.width, canvas.height);
     
     // draw original image in normal mode
